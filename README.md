@@ -25,4 +25,4 @@ Push image to repo on the docker-hub:
 
 $ docker push <hub-user>/<repo-name>:<tag>
 
-make sure you choose the right tag =)
+make sure you choose the right tag!!! =)
