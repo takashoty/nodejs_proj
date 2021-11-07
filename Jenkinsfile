@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        imagename = takashoty/jenkins:v3
+        imagename = takashoty/jenkins
         registryCredential = dockerhub
     }
 
