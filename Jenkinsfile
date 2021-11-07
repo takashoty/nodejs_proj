@@ -1,8 +1,8 @@
 pipeline {
     agent any
     environment {
-        imagename = takashoty/jenkins
-        registryCredential = dockerhub
+        imagename = "takashoty/jenkins:v3"
+        registryCredential = "dockerhub"
     }
 
     stages {
