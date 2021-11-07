@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        imagename = "takashoty/jenkins:v3"
+        imagename = "takashoty/jenkins"
         registryCredential = "dockerhub"
         USERNAME = "takashoty"
         TOKEN = "88600a17-987a-474c-9941-88ad37c5b951"
