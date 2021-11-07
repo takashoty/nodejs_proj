@@ -3,6 +3,8 @@ pipeline {
     environment {
         imagename = "takashoty/jenkins:v3"
         registryCredential = "dockerhub"
+        USERNAME = "takashoty"
+        TOKEN = "88600a17-987a-474c-9941-88ad37c5b951"
     }
 
     stages {
