@@ -26,6 +26,7 @@ pipeline {
                 sh "docker tag $imagename $imagename:latest"
                 sh "docker tag $imagename:latest $imagename:v1.0.$BUILD_NUMBER"
                 sh "docker push $imagename:latest && docker push $imagename:v1.0.$BUILD_NUMBER"
+                sh ""
 
             }
         }
@@ -33,6 +34,11 @@ pipeline {
             steps {
                 sh "docker rmi $imagename:v1.0.$BUILD_NUMBER"
                 sh "docker rmi $imagename:latest"
+            }
+        }
+        stage ('uploading artifacts to s3') {
+            steps {
+                s3Upload consoleLogLevel: 'INFO', dontSetBuildResultOnFailure: true, dontWaitForConcurrentBuildCompletion: false, pluginFailureResultConstraint: 'SUCCESS', profileName: 'aws_s3', userMetadata: []
             }
         }
         stage ('Clean Workspace') {
