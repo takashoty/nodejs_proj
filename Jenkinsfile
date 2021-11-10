@@ -31,7 +31,8 @@ pipeline {
         }
         stage ('Delete image') {
             steps {
-                sh "sudo docker rmi -f $(docker images -a -q)"
+                sh "docker rmi ${env.imagename}:v1.0.${BUILD_NUMBER}"
+                sh "docker rmi ${env.imagename}:latest"
             }
         }
         stage ('Clean Workspace') {
