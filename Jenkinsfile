@@ -11,6 +11,7 @@ pipeline {
         stage('gitclone') {
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/takashoty/nodejs_proj.git']]])
+                }
             }
         }
         stage('buildit') {
