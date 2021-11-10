@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        imagename = takashoty/nodejs_task:v2
+        imagename = 'takashoty/nodejs_task:v2'
         registry = '316557878974.dkr.ecr.eu-west-3.amazonaws.com/bar'
         registryCredential = 'aws_access'
 
