@@ -31,7 +31,7 @@ pipeline {
         }
         stage ('Delete image') {
             steps {
-                sh "docker rmi -f $(docker images -a -q)"
+                sh "sudo docker rmi -f $(docker images -a -q)"
             }
         }
         stage ('Clean Workspace') {
