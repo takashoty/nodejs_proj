@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        imagename = 'nodejs_task:v2'
+        imagename = 'nodejs_task'
         registry = '316557878974.dkr.ecr.eu-west-3.amazonaws.com/nodejs_task'
         registryCredential = 'aws_access'
 
@@ -31,7 +31,7 @@ pipeline {
         }
         stage ('Delete image') {
             steps {
-                sh "docker rmi ${env.imagename}:v1.0.${BUILD_NUMBER}"
+                sh "docker rmi ${env.imagename}:v.1.0${BUILD_NUMBER}"
                 sh "docker rmi ${env.imagename}:latest"
             }
         }
