@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         imagename = 'nodejs_task:v2'
-        registry = '316557878974.dkr.ecr.eu-west-3.amazonaws.com/bar'
+        registry = '316557878974.dkr.ecr.eu-west-3.amazonaws.com/nodejs_task'
         registryCredential = 'aws_access'
 
     }
