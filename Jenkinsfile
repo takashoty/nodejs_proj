@@ -1,4 +1,4 @@
-ipeline {
+pipeline {
     agent any
     environment {
         imagename = takashoty/nodejs_task:v2
