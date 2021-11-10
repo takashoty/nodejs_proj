@@ -1,10 +1,10 @@
-pipeline {
+ipeline {
     agent any
     environment {
-        imagename = "takashoty/jenkins"
-        registryCredential = "dockerhub"
-        USERNAME = "takashoty"
-        TOKEN = "88600a17-987a-474c-9941-88ad37c5b951"
+        imagename = nodejs_task:v2
+        registry = '316557878974.dkr.ecr.eu-west-3.amazonaws.com/bar'
+        registryCredential = 'aws_access'
+
     }
 
     stages {
@@ -20,19 +20,12 @@ pipeline {
                 }
             }
         }
-        stage ('Deploy Image') {
+        stage ('Deploy Image to ECR') {
             steps {
-                sh "docker login -u $USERNAME -p $TOKEN"
-                sh "docker tag $imagename $imagename:latest"
-                sh "docker tag $imagename:latest $imagename:v1.0.$BUILD_NUMBER"
-                sh "docker push $imagename:latest && docker push $imagename:v1.0.$BUILD_NUMBER"
-                sh ""
-
-            }
-        }
-        stage ('uploading artifacts to s3') {
-            steps {
-                s3Upload consoleLogLevel: 'INFO', dontSetBuildResultOnFailure: false, dontWaitForConcurrentBuildCompletion: false, entries: [[bucket: 's3://s3-mgmt-mentor/artifacts/${JOB-NAME}-${BUILD-NUMBER}', excludedFile: '', flatten: false, gzipFiles: false, keepForever: false, managedArtifacts: true, noUploadOnFailure: true, selectedRegion: 'eu-west-3', showDirectlyInBrowser: false, sourceFile: '', storageClass: 'STANDARD', uploadFromSlave: false, useServerSideEncryption: false]], pluginFailureResultConstraint: 'SUCCESS', profileName: 's3-mybucket', userMetadata: []
+                script{
+                docker.withRegistry("https://" + registry, "ecr:eu-west-3:" + registryCredential) {
+                    dockerImage.push()
+                }
             }
         }
         stage ('Delete image') {
@@ -43,7 +36,7 @@ pipeline {
         }
         stage ('Clean Workspace') {
             steps {
-                cleanWs()
+                cleanWS()
             }
         }
     }
