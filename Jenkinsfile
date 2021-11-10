@@ -29,12 +29,6 @@ pipeline {
                 }
             }
         }
-        stage ('Delete image') {
-            steps {
-                sh "docker rmi ${env.imagename}:v.1.0${BUILD_NUMBER}"
-                sh "docker rmi ${env.imagename}:latest"
-            }
-        }
         stage ('Clean Workspace') {
             steps {
                 cleanWS()
