@@ -11,7 +11,6 @@ pipeline {
         stage('gitclone') {
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/takashoty/nodejs_proj.git']]])
-                }
             }
         }
         stage('buildit') {
@@ -23,17 +22,16 @@ pipeline {
         }
         stage ('Deploy Image to ECR') {
             steps {
-                script {
-                docker.withRegistry('https://' + registry, 'ecr:eu-west-3:' + registryCredential) {
+                script{
+                docker.withRegistry("https://" + registry, "ecr:eu-west-3:" + registryCredential) {
                     dockerImage.push()
                 }
             }
         }
         stage ('Delete image') {
             steps {
-                sh 'docker rmi $imagename:v1.0.$BUILD_NUMBER'
-                sh 'docker rmi $imagename:latest'
-                }
+                sh "docker rmi $imagename:v1.0.$BUILD_NUMBER"
+                sh "docker rmi $imagename:latest"
             }
         }
         stage ('Clean Workspace') {
