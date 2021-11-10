@@ -32,6 +32,7 @@ pipeline {
             steps {
                 sh 'docker rmi $imagename:v1.0.$BUILD_NUMBER'
                 sh 'docker rmi $imagename:latest'
+                }
             }
         }
         stage ('Clean Workspace') {
