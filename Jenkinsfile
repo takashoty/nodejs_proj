@@ -29,9 +29,9 @@ pipeline {
                 }
             }
         }
-        stage ('Uploading data to s3') {
+        stage ('Uploading artifacts to s3') {
             steps {
-                s3Upload consoleLogLevel: 'INFO', dontSetBuildResultOnFailure: false, dontWaitForConcurrentBuildCompletion: false, entries: [[bucket: 'tfstate.eu-west-3.service245.com/$(imagename)-$(BUILD_NUMBER)', excludedFile: '', flatten: false, gzipFiles: false, keepForever: false, managedArtifacts: false, noUploadOnFailure: false, selectedRegion: 'eu-west-3', showDirectlyInBrowser: false, sourceFile: '', storageClass: 'STANDARD', uploadFromSlave: false, useServerSideEncryption: false]], pluginFailureResultConstraint: 'SUCCESS', profileName: 's3-mybucket', userMetadata: []
+                s3CopyArtifact buildSelector: lastSuccessful(), excludeFilter: '', filter: '*.jar', flatten: false, optional: false, projectName: '', target: 'jenkins/artifacts/'
             }
         }
         stage ('Clean Workspace') {
